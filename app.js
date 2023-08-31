@@ -16,24 +16,23 @@
 
 // Код возьмите из предыдущего домашнего задания
 
-let numberOfFilms
-
 let personalMovieDB = {
-  count: numberOfFilms,
+  count: 0,
   movies: {},
   actors: {},
   genres: [],
   privat: false,
   start: function () {
-    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '')
+    personalMovieDB.count = prompt('Сколько фильмов вы уже посмотрели?', '')
 
     while (
-      numberOfFilms == '' ||
-      numberOfFilms == null ||
-      isNaN(numberOfFilms)
+      personalMovieDB.count === '' ||
+      personalMovieDB.count === null ||
+      isNaN(personalMovieDB.count) ||
+      +personalMovieDB.count < 0
     ) {
-      alert('Введите числовое значение!')
-      numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '')
+      alert('Введите числовое значение от ноля!')
+      personalMovieDB.count = prompt('Сколько фильмов вы уже посмотрели?', '')
     }
   },
   rememberUserFilms: function () {
@@ -60,21 +59,21 @@ let personalMovieDB = {
   },
   detectedNumberUserFilms: function () {
     if (
-      personalMovieDB.count == null ||
+      personalMovieDB.count === null ||
       isNaN(personalMovieDB.count) ||
-      personalMovieDB.count == ''
+      personalMovieDB.count === ''
     ) {
       alert('Произошла ошибка')
-    } else if (personalMovieDB.count < 10) {
+    } else if (+personalMovieDB.count < 10) {
       alert(
-        `Просмотрено довольно мало фильмов: ${personalMovieDB.count} фильма просмотрено`
+        `Просмотрено довольно мало фильмов: ${+personalMovieDB.count} фильма просмотрено`
       )
-    } else if (10 <= personalMovieDB.count && personalMovieDB.count <= 30) {
+    } else if (10 <= +personalMovieDB.count && +personalMovieDB.count <= 30) {
       alert(
-        `Вы классический зритель: ${personalMovieDB.count} фильма просмотрено`
+        `Вы классический зритель: ${+personalMovieDB.count} фильма просмотрено`
       )
     } else if (personalMovieDB.count > 30) {
-      alert(`Вы киноман: просмотрено ${personalMovieDB.count} фильмов`)
+      alert(`Вы киноман: просмотрено ${+personalMovieDB.count} фильмов`)
     }
   },
   showMyDB: function () {
@@ -108,8 +107,10 @@ let personalMovieDB = {
 }
 
 // personalMovieDB.start()
-// personalMovieDB.rememberUserFilms()
+// console.log(personalMovieDB.count)
+// console.log(typeof +personalMovieDB.count)
 // personalMovieDB.detectedNumberUserFilms()
+// personalMovieDB.rememberUserFilms()
 // personalMovieDB.showMyDB()
 // personalMovieDB.writeYourGenres()
 // personalMovieDB.toggleVisibleMyDB()
